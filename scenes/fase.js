@@ -16,20 +16,22 @@ class Fase extends Phaser.Scene {
 
     // Carrega os arquivos
     preload() {
-        this.load.image('bg', 'assets/bg.png');
-        this.load.image('bgGameOver', 'assets/bgGameOver.png');
-        this.load.image('obstEsquerdo', 'assets/obstEsquerdo.png');
-        this.load.image('obstAcimaDireita', 'assets/obstAcimaDireita.png');
-        this.load.image('obstPequeno', 'assets/obstPequeno.png');
-        this.load.image('obstCentroBaixo', 'assets/obstCentroBaixo.png');
-        this.load.image('obstCentro', 'assets/obstCentro.png');
+        this.load.audio('coletar', 'assets/audio/coletar.mp3');
+        this.load.audio('gameOver', 'assets/audio/gameOver.mp3');
+        this.load.image('bg', 'assets/bg/bgFase.png');
+        this.load.image('bgGameOver', 'assets/bg/bgGameOver.png');
+        this.load.image('obstEsquerdo', 'assets/obstáculos/obstEsquerdo.png');
+        this.load.image('obstAcimaDireita', 'assets/obstáculos/obstAcimaDireita.png');
+        this.load.image('obstPequeno', 'assets/obstáculos/obstPequeno.png');
+        this.load.image('obstCentroBaixo', 'assets/obstáculos/obstCentroBaixo.png');
+        this.load.image('obstCentro', 'assets/obstáculos/obstCentro.png');
         this.load.spritesheet('spritesheetPalhaco', 'assets/spritesheetPalhaco.png', {frameWidth: 140, frameHeight: 60});
         this.load.spritesheet('spritesheetJogador', 'assets/spritesheetJogador.png', {frameWidth: 150, frameHeight: 75});
         this.load.image('palhacoBravo', 'assets/palhacoBravo.png'); 
-        this.load.image('pao', 'assets/pao.png');
-        this.load.image('carne', 'assets/carne.png');
-        this.load.image('batata', 'assets/batata.png'); 
-        this.load.image('ovo', 'assets/ovo.png');
+        this.load.image('pao', 'assets/alimentos/pao.png');
+        this.load.image('carne', 'assets/alimentos/carne.png');
+        this.load.image('batata', 'assets/alimentos/batata.png'); 
+        this.load.image('ovo', 'assets/alimentos/ovo.png');
         this.load.image('x', 'assets/x.png');
     }
 
@@ -44,9 +46,10 @@ class Fase extends Phaser.Scene {
         this.jogador.setSize(60, 70);  
         this.jogador.setOffset(0, 0);  
 
+        // Configura a animação do jogador
         this.anims.create({
             key: 'Jogador', // Nome da animação
-            frames: this.anims.generateFrameNumbers('spritesheetJogador', {start:0, end:3}), // Define os frames que serão usados (start:0 e end:3 definem que serão usados 4 frames presentes no arquivo 'spritesheetJogador' mencionado anteriormente)
+            frames: this.anims.generateFrameNumbers('spritesheetJogador', {start:0, end:3}), // Define os frames que serão usados
             frameRate: 1, // Quantidade de frames em 1 segundo
             repeat: -1 
             // '-1' indica que haverá repetição contínua;
@@ -54,7 +57,8 @@ class Fase extends Phaser.Scene {
             // Um numéro positivo indica a quantidade de repetições
 
         })
-        this.jogador.anims.play('Jogador',true); // Inicia a animação do jogador configurada
+        // Inicia a animação do jogador configurada
+        this.jogador.anims.play('Jogador',true);
 
         // Cria um obstaculo e ajusta sua hitbox
         this.obstEsquerdo = this.physics.add.staticImage(510 / 2, 510 / 2, 'obstEsquerdo');
@@ -181,9 +185,10 @@ class Fase extends Phaser.Scene {
         this.palhaco.setSize(90, 40);  
         this.palhaco.setOffset(30, 10);  
 
+        // Configura a animação do palhaço
         this.anims.create({
             key: 'palhaco', // Nome da animação
-            frames: this.anims.generateFrameNumbers('spritesheetPalhaco', {start:0, end:2}), //Define os frames que serão usados (start:0 e end:7 definem que serão usados 8 frames presentes no arquivo 'bird' mencionado anteriormente)
+            frames: this.anims.generateFrameNumbers('spritesheetPalhaco', {start:0, end:2}), //Define os frames que serão usados
             frameRate: 1, // Quantidade de frames em 1 segundo
             repeat: -1 
             // '-1' indica que haverá repetição contínua;
@@ -191,6 +196,7 @@ class Fase extends Phaser.Scene {
             // Um numéro positivo indica a quantidade de repetições.
 
         })
+        // Inicia a animação configurada do palhaço
         this.palhaco.anims.play('palhaco',true); // Inicia a animação do palhaço configurada
 
         // Cria colisão entre o jogador e todos os obstaculos e entre o palhaço e todos os obstaculos
@@ -199,7 +205,6 @@ class Fase extends Phaser.Scene {
             this.physics.add.collider(this.jogador, this.listaObstaculos[i]);
             this.physics.add.collider(this.palhaco, this.listaObstaculos[i]);
         }
-        this.physics.add.collider(this.palhaco, this.jogador); // Cria colisão entre o jogador e o palhaço
         this.teclado = this.input.keyboard.createCursorKeys(); // Armazena cliques das teclas 
         this.palhacoSeguindo = true; // Inicia a variável palhaçoSeguindo. Inicialmente "true", pois o palhaço começa seguindo o jogador
 
@@ -212,7 +217,7 @@ class Fase extends Phaser.Scene {
     update(){
         // Inicia a velocidade do jogador 
         this.velocidadejogador = 150;
-        this.jogador.setVelocity(0); // Evitar que a velocidade fique acumulada
+        this.jogador.setVelocity(0); // Evita que a velocidade do jogador fique acumulada
 
         // Se a tecla esquerda estiver pressionada, o jogador se move para a esquerda
         if (this.teclado.left.isDown) {
@@ -256,6 +261,7 @@ class Fase extends Phaser.Scene {
     coletarAlimento(alimento, tipo) {
         alimento.setVisible(false); // Torna o alimento invisível
         alimento.body.setEnable(false); // Desativa a hitbox do alimento 
+        this.sound.play('coletar'); // Ativa o som de coletar alimento
         switch (tipo) {
             // Se o alimento for um pão, atualiza o placar do pão
             case 'pao':
@@ -285,6 +291,7 @@ class Fase extends Phaser.Scene {
     }
     // Função que ativa um efeito de "Game Over" (perca) quando o palhaço pega o jogador
     efeitoGameOver(){
+        this.sound.play('gameOver'); // Ativa um efeito sonoro para potencializar o "efeito de "Game Over"
         this.palhacoSeguindo = false; // O palhaço para de seguir o jogador
         this.palhaco.setVelocity(0); // O palhaço não tem mais velocidade
         this.palhaco.anims.stop(); // Para animação do palhaço
@@ -305,7 +312,7 @@ class Fase extends Phaser.Scene {
             this.listaAlimentos[i].body.setGravityY(150);
         }
 
-        this.palhaco.setTexture('palhacoBravo').setScale(0.1); // Troca o sprite do palhaço para um srite do palhaço com expressão mais brava
+        this.palhaco.setTexture('palhacoBravo').setScale(0.1); // Troca o sprite do palhaço para um srite de um palhaço com expressão mais brava para potencializar o "efeito de "Game Over"
         this.jogador.setVisible(false); // Torna o jogador invisível
         this.jogador.setActive(false);  // Desativa o jogador
 

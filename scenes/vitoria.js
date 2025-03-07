@@ -15,9 +15,9 @@ class Vitoria extends Phaser.Scene {
     }
     // Carrega os arquivos 
     preload() {
-        this.load.image('telaVitoria', 'assets/telaVitoria.png');
-        this.load.image('playAgain', 'assets/playAgain.png');
-        this.load.image('exit', 'assets/exit.png');
+        this.load.image('telaVitoria', 'assets/bg/bgVitoria.png');
+        this.load.image('playAgain', 'assets/botões/playAgain.png');
+        this.load.image('exit', 'assets/botões/exit.png');
         this.load.spritesheet('spritesheetPlayer', 'assets/spritesheetPlayer.png', {frameWidth: 150, frameHeight: 75});
     }
 
@@ -42,7 +42,7 @@ class Vitoria extends Phaser.Scene {
         exit.setInteractive({ useHandCursor: true }); // Torna o botão de voltar para o menu clicável
         exit.input.hitArea.setSize(124, 26); // Ajusta a área da hitbox do botão de voltar para o menu
 
-        // Se o botão de jogar novamente for clicável o usuário será redirecionado para a tela de Boas-Vindas
+        // Se o botão de jogar novamente for clicado o usuário será redirecionado para a tela de Boas-Vindas
         exit.on('pointerdown', () => {
             this.scene.start('BoasVindas');
         });

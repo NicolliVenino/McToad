@@ -7,13 +7,13 @@ class ComoJogar extends Phaser.Scene {
 
     // Carrega os arquivos
     preload() {
-        this.load.image('comoJogar', 'assets/ComoJogar.png');
-        this.load.image('main', 'assets/main.png');
+        this.load.image('bgComoJogar', 'assets/bg/bgComoJogar.png');
+        this.load.image('main', 'assets/botões/main.png');
     }
 
     create() {
         // Cria o background da tela de como jogar
-        this.add.image(510/2, 510/2, 'comoJogar').setDisplaySize(510, 510);
+        this.add.image(510/2, 510/2, 'bgComoJogar').setDisplaySize(510, 510);
 
         // Cria o botão de voltar 
         const main = this.add.image(355, 335, 'main').setScale(0.11);

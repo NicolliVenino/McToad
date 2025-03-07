@@ -1,15 +1,15 @@
-<!doctype html> 
-<html lang="en"> 
+<!doctype html> <!-- Declara o HTML5 -->
+<html lang="en"> <!-- Define que o idioma da página será inglês -->
 <head> 
     <meta charset="UTF-8" />
-    <title>Mc Man</title>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.23.0/dist/phaser.js"></script>
-    <script src="scenes/boasVindas.js"></script>
-    <script src="scenes/vitoria.js"></script>
-    <script src="scenes/comoJogar.js"></script>
-    <script src="scenes/fase.js"></script>
-    <script src="scenes/welcome.js"></script>
+    <title>McToad</title> <!-- Título do jogo -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.23.0/dist/phaser.js"></script> <!-- Carrega o phaser -->
+    <script src="scenes/boasVindas.js"></script> <!-- Carrega a cena de boas-vindas -->
+    <script src="scenes/vitoria.js"></script> <!-- Carrega a cena de vitória -->
+    <script src="scenes/comoJogar.js"></script> <!-- Carrega a cena de "como jogar" -->
+    <script src="scenes/fase.js"></script> <!-- Carrega a cena da fase -->
 
+    <!-- Define o estilo básico da página -->
     <style>
         body {
             margin-top: 1px;
@@ -17,7 +17,7 @@
         }
 
         canvas {
-            border: 1px solid #000000;
+            border: 1px solid #000000; /* Define uma borda preta de 1px na página */
         }
     </style>
 
@@ -28,32 +28,26 @@
     <div id="game"></div>
 
     <script type="text/javascript">
-        /*Global variables definition*/
+        /* Configurações do Phaser*/
         const config = {
-            type: Phaser.AUTO,
+            type: Phaser.AUTO, // Define a renderização
             scale: {
-                mode: Phaser.Scale.FIT
+                mode: Phaser.Scale.FIT // Permite que a tela do jogo seja ajustável ao navegador do usuário.
             },
-            autoCenter: Phaser.Scale.CENTER,
-            width: 510, //largura da tela do jogo
-            height: 510, //altura da tela do jogo
-            backgroundColor: '#000000',
-            physics: {
-                default: 'arcade',
-                arcade: {
-                    gravity: { y: 0 },
-                    debug: true
-                }
-            },
+            autoCenter: Phaser.Scale.CENTER, // Permite que a tela do jogo seja centralizada na janela do navegador
+            width: 510, // Largura da tela do jogo
+            height: 510, // Altura da tela do jogo
+            backgroundColor: '#000000', // Define cor preta para fundo do jogo
             parent: "game",
             dom:{
                createContainer: true,
             },
-            scene: [BoasVindas, ComoJogar, Fase, Vitoria]
+            scene: [BoasVindas, ComoJogar, Fase, Vitoria] // Define as cenas que compoem o jogo
         };
         
+        // Inicia o jogo
         var game = new Phaser.Game(config);
-        game.scene.start('BoasVindas');
+        game.scene.start('BoasVindas'); // Faz com que a cena de boas-vindas seja a primeira a ser mostrada
     </script>
 
 </body>
