@@ -266,7 +266,7 @@ class Fase extends Phaser.Scene {
             // Se o alimento for um pão, atualiza o placar do pão
             case 'pao':
                 this.pontuacaoPao += 1;
-                this.placarPao.setText(':' + this.pontuacaoPao);
+                this.placarPao.setText(':'+ this.pontuacaoPao);
                 this.checarVitoria() // Confere se o usuário coletou todos os alimentos
                 break;
             // Se o alimento for uma carne, atualiza o placar da carne
